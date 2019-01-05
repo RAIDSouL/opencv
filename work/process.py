@@ -4,16 +4,19 @@ import numpy as np
 from imutils import contours
 from imutils.perspective import four_point_transform
 
-image = cv2.imread("1.jpg")
+image = cv2.imread("2.jpg")
 image = imutils.resize(image, height=700)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 blurred = cv2.GaussianBlur(gray, (5, 5), 0)
 edged = cv2.Canny(blurred, 50, 200, 255)
+cv2.imshow("edged" , edged)
 cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL,
 	cv2.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
 cnts = sorted(cnts, key=cv2.contourArea, reverse=True)
 for c in cnts:
+	x, y, w, h = cv2.boundingRect(c)
+	cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
 	# approximate the contour
 	peri = cv2.arcLength(c, True)
 	approx = cv2.approxPolyDP(c, 0.02 * peri, True)
@@ -25,6 +28,8 @@ for c in cnts:
 		break
 warped = four_point_transform(gray, displayCnt.reshape(4, 2))
 output = four_point_transform(image, displayCnt.reshape(4, 2))
+cv2.imshow("warped", warped)
+cv2.imshow("img" ,image)
 # thresh = cv2.threshold(warped, 0, 255,
 # 	cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 blurred = cv2.GaussianBlur(warped, (5 , 5), 0)
