@@ -5,3 +5,4 @@ print(ocr.text_from_image_file('4.PNG','eng')) # กำหนดเป็นภ�
 print(ocr.text_from_image_file('5.PNG','eng')) # กำหนดเป็นภาษาอังกฤษ
 print(ocr.text_from_image_file('6.PNG','eng')) # กำหนดเป็นภาษาอังกฤษ
 print(ocr.text_from_image_file('7.PNG','eng')) # กำหนดเป็นภาษาอังกฤษ
+print(ocr.text_from_image_file('1.jpg','tha'))
