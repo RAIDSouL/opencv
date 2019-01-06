@@ -16,7 +16,7 @@ def showpic(name):
     cv2.imshow( "name" , name )
 
 def main() :
-    image = cv2.imread("1.png")
+    image = cv2.imread("3.png")
     image = imutils.resize(image, height=700)
     showpic(image)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -41,9 +41,25 @@ def main() :
             # if w * h > 4000 :
             #     cv2.imshow("dialation" , dilation)
             if w*h > 4000 :
+                str1 = "หลังอาหาร"
+                str2 = "เช้า"
+                str3 = "กลางวัน"
+                str4 = "เย็น"
                 roi = image[y:y+h, x:x+w]
                 cv2.imwrite( str(w*h) + ".png" , roi)
                 f.write(text_from_image_file( str(w*h) + ".png",'tha'))
+    f = open('test.txt')
+    line = f.readline()
+    while line:
+        if(line.find(str1) > 0):
+            print ('หลังอาหาร')
+            if(line.find(str2) >0):
+                print('เช้า')
+            if(line.find(str3) >0):
+                print('กลางวัน')
+            if(line.find(str4) >0):
+                print('เย็น')
+        line = f.readline()
     cv2.imshow('img' , image)
     cv2.waitKey(0)
 main()
