@@ -17,7 +17,7 @@ def showpic(name):
 
 def main() :
     # BLACK = [0,0,0]
-    image = cv2.imread("1.jpg")
+    image = cv2.imread("1.png")
     # image = cv2.copyMakeBorder(image,10,10,10,10,cv2.BORDER_CONSTANT,value=BLACK)
     image = imutils.resize(image, height=500)
     # showpic(image)
