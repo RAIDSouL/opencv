@@ -1,7 +1,7 @@
 import cv2
 import imutils
 import numpy as np
-import tempfile
+#import tempfile
 import subprocess
 from imutils import contours
 from imutils.perspective import four_point_transform
@@ -71,4 +71,5 @@ def main() :
     #     line = f.readline()
     cv2.imshow('img' , image)
     cv2.waitKey(0)
+    
 main()
