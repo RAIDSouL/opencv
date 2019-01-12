@@ -49,10 +49,10 @@ def main() :
         if w > h :
             # if (h / w < 0.7 ) :
                 cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
-        # if w*h > 4000 :
-        #     roi = image[y:y+h, x:x+w]
-        #     cv2.imwrite( str(w*h) + ".png" , roi)
-        #     f.write(text_from_image_file( str(w*h) + ".png",'tha'))
+        if w*h > 4000 :
+            roi = image[y:y+h, x:x+w]
+            cv2.imwrite( str(w*h) + ".png" , roi)
+            f.write(text_from_image_file( str(w*h) + ".png",'tha'))
 # f = open('test.txt')
     # str1 = "หลังอาหาร"
     # str2 = "เช้า"
