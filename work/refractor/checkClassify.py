@@ -7,7 +7,7 @@ import subprocess
 from imutils import contours
 from imutils.perspective import four_point_transform
 
-str0 = "ก่อนอาหาร"
+strB1 = "ก่อนอาหาร"
 strA1 = "หลังอาหาร"
 strA2 = "หลังอาหาธ"
 str2 = "เช้า"
@@ -33,7 +33,7 @@ def Spell_checker(name):
     
     line = f.readline()
     while line:
-        if(line.find(str0) > 0):
+        if(line.find(strB1) > 0):
             print ('ก่อนอาหาร')
             if(line.find(str2) >0):
                 print('เช้า')
@@ -82,6 +82,7 @@ def main(argv) :
                 # cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
                 roi = image[y:y+h, x:x+w]
                 cv2.imwrite( str(w*h) + ".png" , roi)
+                # f.write(text_from_image_file( str(w*h) + ".png",'tha'))
                 temp = text_from_image_file( str(w*h) + ".png",'tha')
                 if(temp.find(strA1) > 0 or temp.find(strA2) > 0):
                     cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)

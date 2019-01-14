@@ -7,6 +7,19 @@ import subprocess
 from imutils import contours
 from imutils.perspective import four_point_transform
 
+# str0 = "ก่อนอาหาร"
+# str1 = "หลังอาหาร"
+# str2 = "เช้า"
+# str3 = "กลางวัน"
+# str4 = "เย็น"
+
+strB1 = "ก่อนอาหาร"
+strA1 = "หลังอาหาร"
+strA2 = "หลังอาหาธ"
+str2 = "เช้า"
+str3 = "กลางวัน"
+str4 = "เย็น"
+
 def text_from_image_file(image_name,lang):
     output_name = "OutputImg"
     return_code = subprocess.call(['tesseract',image_name,output_name,'-l',lang,'-c','preserve_interword_spaces=1 --tessdata-dir ./tessdata_best/'],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -23,14 +36,10 @@ def More_Gray(gamma,image) : #make picture more clearly
 
 def Spell_checker(name):
     f = open(name + ".txt")
-    str0 = "ก่อนอาหาร"
-    str1 = "หลังอาหาร"
-    str2 = "เช้า"
-    str3 = "กลางวัน"
-    str4 = "เย็น"
+    
     line = f.readline()
     while line:
-        if(line.find(str0) > 0):
+        if(line.find(strB1) > 0):
             print ('ก่อนอาหาร')
             if(line.find(str2) >0):
                 print('เช้า')
@@ -38,7 +47,7 @@ def Spell_checker(name):
                 print('กลางวัน')
             if(line.find(str4) >0):
                 print('เย็น')
-        if(line.find(str1) > 0):
+        if(line.find(strA1) > 0 or line.find(strA2) > 0):
             print ('หลังอาหาร')
             if(line.find(str2) >0):
                 print('เช้า')
@@ -71,7 +80,7 @@ def main(argv) :
         for cnt in contours[1:] :
             x, y, w, h = cv2.boundingRect(cnt)
             if (h / w < 0.7 ) :
-                cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
+                # cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
                 roi = image[y:y+h, x:x+w]
                 cv2.imwrite( str(w*h) + ".png" , roi)
                 f.write(text_from_image_file( str(w*h) + ".png",'tha'))
