@@ -167,6 +167,7 @@ def Spell_checker(name):
             if(line.find(str4) >0):
                 print('เย็น')
                 isEatDinner = True
+            print(isEatBreakfast)
         line = f.readline()
 
 def JSON_Creator(_isPeriod, _isEatBreakfast, _isEatLunch, _isEatDinner, _isEatBedTime, _isRoutine, _periodHour) :
