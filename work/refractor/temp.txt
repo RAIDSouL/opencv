@@ -1,1 +1,1 @@
-{"isPeriod" : false ,"Data" : {"isEatBreakfast" : false ,"isEatLunch" : fasle ,"isEatDinner" : fasle ,"isEatBedTIme" : false}}
+{"isPeriod" : false ,"Data" : {"isEatBefore" : false ,"isEatBreakfast" : true ,"isEatLunch" : fasle ,"isEatDinner" : fasle ,"isEatBedTIme" : false}}

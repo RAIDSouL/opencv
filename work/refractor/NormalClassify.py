@@ -103,15 +103,6 @@ import subprocess
 from imutils import contours
 from imutils.perspective import four_point_transform
 
-# Damn Shitty
-isPeriod = bool(False)
-isEatBreakfast = False
-isEatLunch = False
-isEatDinner = False
-isEatBedTime = False
-isRoutine = False
-periodHour = 0
-
 # str0 = "ก่อนอาหาร"
 # str1 = "หลังอาหาร"
 # str2 = "เช้า"
@@ -142,10 +133,21 @@ def More_Gray(gamma,image) : #make picture more clearly
 def Spell_checker(name):
     f = open(name + ".txt")
     
+    # Damn Shitty
+    isEatBefore = False
+    isPeriod = bool(False)
+    isEatBreakfast = False
+    isEatLunch = False
+    isEatDinner = False
+    isEatBedTime = False
+    isRoutine = False
+    periodHour = 0
+
     line = f.readline()
     while line:
         if(line.find(strB1) > 0):
             print ('ก่อนอาหาร')
+            isEatBefore = True
             if(line.find(str2) >0):
                 isEatBreakfast = True
                 print('เช้า')
@@ -157,20 +159,20 @@ def Spell_checker(name):
                 isEatDinner = True
         if(line.find(strA1) > 0 or line.find(strA2) > 0):
             print ('หลังอาหาร')
+            isEatBefore = False
             if(line.find(str2) >0):
                 print('เช้า')
                 isEatBreakfast = True
-                print(isEatBreakfast)
             if(line.find(str3) >0):
                 print('กลางวัน')
                 isEatLunch = True
             if(line.find(str4) >0):
                 print('เย็น')
                 isEatDinner = True
-            print(isEatBreakfast)
         line = f.readline()
+        JSON_Creator(isPeriod, isEatBefore, isEatBreakfast, isEatLunch, isEatDinner, isEatBedTime, isRoutine, periodHour)
 
-def JSON_Creator(_isPeriod, _isEatBreakfast, _isEatLunch, _isEatDinner, _isEatBedTime, _isRoutine, _periodHour) :
+def JSON_Creator(_isPeriod, _isEatBefore,_isEatBreakfast, _isEatLunch, _isEatDinner, _isEatBedTime, _isRoutine, _periodHour) :
     temp = open("temp.txt", "w")
     temp.write("{")
     if _isPeriod == False :
@@ -179,6 +181,9 @@ def JSON_Creator(_isPeriod, _isEatBreakfast, _isEatLunch, _isEatDinner, _isEatBe
         # "Data" : {
         temp.write ("\"" + "Data" + "\"" + " : " + "{")
 
+        if _isEatBefore :
+            temp.write ("\"" + "isEatBefore" + "\""+ " : " + "true ,")
+        else : temp.write ("\"" + "isEatBefore" + "\""+ " : " + "false ,")
         if _isEatBreakfast :
             temp.write ("\"" + "isEatBreakfast" + "\""+ " : " + "true ,")
         else : temp.write ("\"" + "isEatBreakfast" + "\""+ " : " + "false ,")
@@ -239,8 +244,10 @@ def main(argv) :
 
     # Doing Some JSON
 
+    # Do fucking Everything in this <3 
+    # Hey Guys, I'm Peni Parker. I was born in New York 3145.
     Spell_checker(fname)
-    print(isEatBreakfast)
-    JSON_Creator(isPeriod, isEatBreakfast, isEatLunch, isEatDinner, isEatBedTime, isRoutine, periodHour)
+    F_temp = open("temp.txt", "r")
+    print(F_temp.readline())
     
 main(sys.argv[1:])
