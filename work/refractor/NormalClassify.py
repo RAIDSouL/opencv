@@ -80,13 +80,13 @@ def main(argv) :
         for cnt in contours[1:] :
             x, y, w, h = cv2.boundingRect(cnt)
             if (h / w < 0.7 ) :
-                # cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
+                cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
                 roi = image[y:y+h, x:x+w]
                 cv2.imwrite( str(w*h) + ".png" , roi)
                 f.write(text_from_image_file( str(w*h) + ".png",'tha'))
                 os.remove( str(w*h) + ".png")
     cv2.imshow('img' , image)
     cv2.waitKey(0)
-    Spell_checker(fname)
+    Spell_checker(fname) 
     
 main(sys.argv[1:])
