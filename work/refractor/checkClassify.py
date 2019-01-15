@@ -67,26 +67,26 @@ def main(argv) :
     gray = More_Gray(3,gray) #make picture more clear
     blurred = cv2.GaussianBlur(gray, (5 , 5), 0)
     edged = cv2.Canny(blurred, 50, 200, 255)
-    kernel = np.ones((3,6),np.uint8)
+    kernel = np.ones((6,5),np.uint8)
     dilation = cv2.dilate(edged,kernel,iterations = 1)
     cv2.imshow('dilation' , dilation)
     contourmask,contours,hierarchy = cv2.findContours(dilation,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
     contours = sorted(contours, key=cv2.contourArea, reverse=True)
     fname = argv[0].split(".")[0]
-    temp = contours
+    temp = image
     
     with open(fname+".txt","w") as f:
         for cnt in contours[1:] :
             x, y, w, h = cv2.boundingRect(cnt)
-            if (h / w < 0.7 and h * w > 500) :
+            # if (h / w < 0.7 and h * w > 500) :
+            cv2.rectangle(temp,(x,y),(x+w,y+h),(0,0,255),2)
+            roi = image[y:y+h, x:x+w]
+            cv2.imwrite( str(w*h) + ".png" , roi)
+            f.write(text_from_image_file( str(w*h) + ".png",'tha'))
+            # temp = text_from_image_file( str(w*h) + ".png",'tha')
+            # if(temp.find(strA1) > 0 or temp.find(strA2) > 0):
                 # cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
-                roi = image[y:y+h, x:x+w]
-                cv2.imwrite( str(w*h) + ".png" , roi)
-                # f.write(text_from_image_file( str(w*h) + ".png",'tha'))
-                temp = text_from_image_file( str(w*h) + ".png",'tha')
-                if(temp.find(strA1) > 0 or temp.find(strA2) > 0):
-                    cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
-                os.remove( str(w*h) + ".png")
+            os.remove( str(w*h) + ".png")
     cv2.imshow('img' , image)
     cv2.waitKey(0)
     Spell_checker(fname)
