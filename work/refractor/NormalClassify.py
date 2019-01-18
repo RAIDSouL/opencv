@@ -128,7 +128,6 @@ def cvt_to_JSON(_isPeriod, _isEatBefore,_isEatBreakfast, _isEatLunch, _isEatDinn
     data["isEatBedTime"] = _isEatBedTime
     output["data"] = data
     conv_json = json.dumps(output, ensure_ascii = False)
-    print('Hi')
     print(conv_json)
 
 def main(argv) :
