@@ -1,6 +1,7 @@
+import cv2
+
 datalists = []
 datalists.append("ก่อก อาหาร")
-
 
 def iterative_levenshtein(s, t, costs=(1, 1, 1)):
     """ 
